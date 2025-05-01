@@ -8,7 +8,6 @@ void main(){
     debugShowCheckedModeBanner: false,
     home: HomeView(),
     theme: ThemeData.light(),
-      themeMode: ThemeMode.light,
     translations: AppTranslation(),
     locale: Locale('en_US'),
   ));

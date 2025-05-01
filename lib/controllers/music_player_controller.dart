@@ -11,7 +11,6 @@ class MusicPlayerController extends GetxController {
   var position = Duration.zero.obs;
   var songTitle = "".obs;
   var currentPath = "".obs;
-  var imageUrl = "".obs;
 
   @override
   void onInit() {

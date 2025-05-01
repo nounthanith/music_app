@@ -11,6 +11,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  bool isSwitched = false;
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(MusicPlayerController());
@@ -31,8 +32,6 @@ class _HomeViewState extends State<HomeView> {
       return "$minutes:$seconds";
     }
 
-    bool isSwitched = false;
-
     return Scaffold(
       appBar: AppBar(
         title: Text("home".tr, style: TextStyle(fontWeight: FontWeight.bold)),
@@ -46,19 +45,20 @@ class _HomeViewState extends State<HomeView> {
                 icon: Icon(Icons.language),
               ),
               Switch(
-                activeColor: Colors.blue,
+                activeColor: Colors.grey,
                 value: isSwitched,
                 onChanged: (bool value) {
                   setState(() {
-                    isSwitched = value;
+                    isSwitched = value; // Corrected assignment
                     if (isSwitched) {
-                      Get.changeTheme(ThemeData.light());
-                    } else {
                       Get.changeTheme(ThemeData.dark());
+                    } else {
+                      Get.changeTheme(ThemeData.light());
                     }
                   });
                 },
               ),
+
             ],
           ),
         ],
@@ -101,7 +101,7 @@ class _HomeViewState extends State<HomeView> {
                   children: [
                     Slider(
                       activeColor: Colors.black,
-                      inactiveColor: Colors.green,
+                      inactiveColor: Colors.grey,
                       min: 0,
                       max: controller.duration.value.inSeconds.toDouble(),
                       value: controller.position.value.inSeconds
@@ -121,11 +121,21 @@ class _HomeViewState extends State<HomeView> {
                         children: [
                           Text(
                             _formatTime(controller.position.value),
-                            style: TextStyle(color: Colors.black, fontSize: 12),
+                            style: TextStyle(
+                              color: Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontSize: 12,
+                            ),
                           ),
                           Text(
                             _formatTime(controller.duration.value),
-                            style: TextStyle(color: Colors.black, fontSize: 12),
+                            style: TextStyle(
+                              color: Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.white
+                                  : Colors.black,
+                              fontSize: 12,
+                            ),
                           ),
                         ],
                       ),
